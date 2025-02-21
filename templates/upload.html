@@ -1,22 +1,26 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-<div class="container mt-5">
-    <h2 class="text-center">Upload Your Resume</h2>
-    <form action="upload.php" method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow">
-        <div class="mb-3">
-            <label for="name" class="form-label">Full Name:</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="mb-3">
-            <label for="resume" class="form-label">Upload Resume (PDF/DOCX):</label>
-            <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Upload</button>
-    </form>
+<!-- Background iframe -->
+<div class="position-fixed top-10 start-0 w-100 h-100 z-0">
+    <iframe src="https://my.spline.design/holographicearthwithdynamiclines-0d644b978f04ddb196eca75a102f42f1/"
+        class="w-100 h-100 border-0" style="object-fit: cover;"></iframe>
 </div>
-{% endblock  %}
+
+<!-- Resume Upload Section -->
+<section class="container-fluid position-relative mt-5  z-2">
+    <div class="row justify-content-center">
+        <div class="col-md-6 bg-dark bg-opacity-75 text-light p-4 rounded shadow">
+            <h2 class="text-center">Upload Your Resume</h2>
+            <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                
+                <div class="mb-3">
+                    <label for="resume" class="form-label">Upload Resume (PDF/DOCX):</label>
+                    <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Upload</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

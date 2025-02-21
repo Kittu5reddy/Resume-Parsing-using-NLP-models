@@ -62,21 +62,23 @@ def match_resume(query_text, top_k=1):
     # Sort results
     matches = matches.sort_values(by="similarity_score", ascending=False)
 
-    return matches[["description", "resume_text", "similarity_score"]].to_dict(orient="records")
+    l=matches[["description", "resume_text", "similarity_score"]].to_dict(orient="records")
+    # Get the match with the highest similarity score
+    return max(l, key=lambda x: x["similarity_score"])["similarity_score"]
 
 # Extract text from a sample resume PDF
-pdf_text = extract_text_pymupdf("Palvai's Resume-hackerresume.pdf")
-print("\n🔹 Extracted Text from Resume:")
-print(pdf_text[:1000])  # Print first 1000 chars for preview
+# pdf_text = extract_text_pymupdf("Palvai's Resume-hackerresume.pdf")
+# print("\n🔹 Extracted Text from Resume:")
+# print(pdf_text[:1000])  # Print first 1000 chars for preview
 
-# Job Description
-job_description = "Looking for a Software Engineer with Python experience in Django, SQL, and cloud platforms."
+# # Job Description
+# job_description = "Looking for a Software Engineer with Python experience in Django, SQL, and cloud platforms."
 
 # Query and match resumes
-query = "Software Engineer with Python experience"
-matches = match_resume(query)
+# query = "Software Engineer with Python experience"
+# matches = match_resume(query)
 
-# Print results
-print("\n🔹 Best Matches:")
-for match in matches:
-    print(f"\n🍌 Matched Resume:\n{match}")
+# # Print results
+# print("\n🔹 Best Matches:")
+# for match in matches:
+#     print(f"\n🍌 Matched Resume:\n{match}")
