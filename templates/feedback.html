@@ -1,7 +1,65 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-    <h1>
-        {{data}}
-    </h1>
+<iframe class="position-absolute " src='https://my.spline.design/cutecomputerfollowcursor-d16a08fe2e1094a2eeeda28f5e36892d/' frameborder='0' width='100%' height='100%'></iframe>
+    <div class="row mt-4 pt-5">
+        
+    <div class="card col-6 mx-5">
+        <h2 id="candidate-name">Candidate Name</h2>
+        <p id="candidate-position">Candidate Position</p>
+        <div class="info">
+            <p><strong>Skill Match:</strong> <span id="skill-match">--%</span></p>
+            <p><strong>Fraud Detection:</strong> <span id="fraud-detection">--</span></p>
+            <p><strong>Sentiment Analysis:</strong> <span id="sentiment-analysis">--</span></p>
+        </div>
+        <label>Leave a Comment</label>
+        <textarea id="comment" placeholder="Write your feedback..."></textarea>
+        <label>Personalized Rejection Feedback</label>
+        <select id="rejection-reason">
+            <option value="">Select a reason</option>
+            <option value="lack-experience">Lack of relevant experience</option>
+            <option value="skill-mismatch">Skill mismatch</option>
+            <option value="cultural-misfit">Cultural misfit</option>
+        </select>
+        <div class="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+        
+    </div>
+    <div class="col-3"></div>
+</div>
+    <script>
+        let rating = 0;
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                rating = this.getAttribute('data-value');
+                document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                for (let i = 1; i <= rating; i++) {
+                    document.querySelector(`.star[data-value='${i}']`).classList.add('active');
+                }
+            });
+        });
+
+        function submitFeedback() {
+            let comment = document.getElementById('comment').value;
+            let rejectionReason = document.getElementById('rejection-reason').value;
+            if (!comment) {
+                alert("Please provide a comment before submitting.");
+                return;
+            }
+            console.log({ candidateId: 1, comment, rating, rejectionReason });
+            alert("Feedback submitted successfully!");
+            document.getElementById('comment').value = "";
+            document.getElementById('rejection-reason').value = "";
+            rating = 0;
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+        }
+    </script>
+
 {% endblock  %}
