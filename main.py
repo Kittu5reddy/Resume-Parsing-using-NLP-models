@@ -9,13 +9,7 @@ import re
 index_file = "./FAISS/resume_index.index"
 resume_file = "Resume.csv"
 
-if not os.path.exists(index_file):
-    print(f"⚠ FAISS index file '{index_file}' not found. Generate it first.")
-    exit()
 
-if not os.path.exists(resume_file):
-    print(f"⚠ Resume dataset '{resume_file}' not found.")
-    exit()
 
 # Load pre-trained Sentence-BERT model
 model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -43,7 +37,7 @@ def preprocess_text(text):
 data["resume_text"] = data["resume_text"].apply(preprocess_text)
 
 # Function to match resume with query
-def match_resume(query_text, top_k=1):
+def match_resume(query_text,desc, top_k=1):
     query_text = preprocess_text(query_text)
 
     # Generate embedding for the query

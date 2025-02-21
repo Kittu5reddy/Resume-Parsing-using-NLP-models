@@ -33,10 +33,9 @@ def upload():
             data = match_resume(text)
             result=True if data>0.4 else False
             if result:
-                pass
+                return render_template('feedback.html',data=result)
             else:
-                pass
-                # return render_template('')
+                return render_template('upload.html',data="no")
         else:
             return "Invalid file format. Only PDF and DOCX allowed.", 400
 
