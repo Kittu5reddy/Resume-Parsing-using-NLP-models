@@ -1,4 +1,5 @@
-from main import extract_text_pymupdf,match_resume
+#backnd
+from main import extract_text_pymupdf,match_resume,ResumeCertificationValidator
 from flask import Flask,request,redirect,render_template
 from werkzeug.utils import secure_filename
 import os
@@ -32,10 +33,11 @@ def upload():
             text = extract_text_pymupdf(file_path)
             data = match_resume(text)
             result=True if data>0.4 else False
-            if result:
-                return render_template('feedback.html',data=result)
-            else:
-                return render_template('upload.html',data="no")
+            validator=ResumeCertificationValidator().process_resume(file_path)
+            print(validator)
+            if not result:
+                pass
+            return render_template('feedback.html',data=result,validator=validator['certifications'][0])
         else:
             return "Invalid file format. Only PDF and DOCX allowed.", 400
 

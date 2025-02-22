@@ -8,10 +8,25 @@
         <h2 id="candidate-name">Candidate Name</h2>
         <p id="candidate-position">Candidate Position</p>
         <div class="info">
-            <p><strong>Skill Match:</strong> <span id="skill-match">--%</span></p>
-            <p><strong>Fraud Detection:</strong> <span id="fraud-detection">--</span></p>
-            <p><strong>Sentiment Analysis:</strong> <span id="sentiment-analysis">--</span></p>
+            <p><strong>Skill Match:</strong> <span id="skill-match">
+                {% if data %}
+                <span id="skill-match" class="text-success">  Matched  </span>
+                {%else%}
+                <span id="skill-match" class="text-danger">  Not Matched  </span>
+                {%endif%}
+            </span></p>
+            <p><strong>Fraud Detection:</strong> <span id="fraud-detection">{% if validator['confidence']>=0.5 %}
+                <span id="skill-match" class="text-success"> Clean </span>
+            {% else %}
+                <span id="skill-match" class="text-danger"> Fraud Detected </span>
+            {% endif %}
+            <p><strong>Sentiment Analysis:</strong> <span id="sentiment-analysis">{% if data %}
+                <span id="skill-match" class="text-success">  Postive  </span>
+                {%else%}
+                <span id="skill-match" class="text-danger">  Negative  </span>
+                {%endif%}</span></p>
         </div>
+        {% if not data %}
         <label>Leave a Comment</label>
         <textarea id="comment" placeholder="Write your feedback..."></textarea>
         <label>Personalized Rejection Feedback</label>
@@ -29,6 +44,8 @@
             <span class="star" data-value="5">★</span>
         </div>
         <button onclick="submitFeedback()">Submit Feedback</button>
+        
+        {% endif %}
         
     </div>
     <div class="col-3"></div>
